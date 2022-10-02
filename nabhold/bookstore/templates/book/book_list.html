@@ -1,0 +1,22 @@
+
+{% extends "book/book-base.html" %}
+{% block title %} Books list {% endblock %}
+{% load static %} 
+
+{% block content %}
+<div class="container">
+   <h1>Book List</h1>
+   {% if books %}
+   <ul>
+      {% for book in books %}
+      <li>
+         <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+      </li>
+      {% endfor %}
+   </ul>
+   {% else %}
+   <p>There are no books in the library with this title. </p>
+   {% endif %}
+   {% include "pagination.html" with page=page_obj %}
+</div>
+{% endblock %}

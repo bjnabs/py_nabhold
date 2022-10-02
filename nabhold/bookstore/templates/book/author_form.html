@@ -1,0 +1,15 @@
+{% extends "book/book-base.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+</section>
+{% endblock %}

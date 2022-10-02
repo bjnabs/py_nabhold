@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ post.title }}{% endblock %}
+{% load static bootstrap5 %}
+
+
+{% block content %}
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-3">
+                <div class="d-flex align-items-center mt-lg-5 mb-4">
+                    <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                        alt="..." />
+                    <div class="ms-3">
+                        <div class="fw-bold"> {{ post.author.first_name |capfirst }} {{ post.author.last_name |capfirst }} </div>
+                        <div class="text-muted">{{ post.tags.all|join:", " }} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h3 class="fw-bolder mb-1">{{ post.title }}</h3>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">Published {{ post.publish | date:"l d F Y" }} by {{ post.author.first_name |capfirst }} {{ post.author.last_name |capfirst }} </div>
+                        <!-- Post categories-->
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                    </header>
+                    <!-- Preview image figure-->
+                    <figure class="mb-4"><img class="img-fluid rounded"
+                            src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        {{ post.body|linebreaks }}
+                    </section>
+                </article>
+                <div>
+                    <p>
+                        <a href="{% url 'blog:post_share' post.id %}">
+                            Share this post
+                        </a>
+                    </p>
+                    {% with comments.count as total_comments %}
+                    <h4>
+                        {{ total_comments }} comment{{ total_comments|pluralize }}
+                    </h4>
+                    {% endwith %}
+                </div>
+                <!-- Comments section-->
+                <section>
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            {% if request.user.is_authenticated %}
+                            <!-- Comment form-->
+                            {% include "includes/comment_form.html" %} 
+                            {%else%}
+                            <p> You need to be logged in to post a comment. click <a href="{% url 'account:login' %}">here</a> to login </p>
+                            {% endif %}
+
+                            {% for comment in comments %}
+                            <div class="d-flex mb-4">
+                                <!-- Parent comment-->
+                                <div class="flex-shrink-0">
+                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">{{ comment.name }}</div>
+                                        {{ comment.body|linebreaks }}
+                                    <!-- Child comment 1 
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">  {{ comment.name }}
+
+                                        </div> 
+                                            {{ comment.body|linebreaks }}
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            {% empty %}
+                            <p>There are no comments.</p>
+                            {% endfor %} 
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <h3>Similar posts</h3>
+        <hr>
+        <div class="row">
+        {% for post in similar_posts %}
+            <div class="col col-sm-6 col-md-4, col-lg-4">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col col-md-4">
+                            <img src="..." class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col col-md-8">
+                            <div class="card-body">
+                                <p class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </p> 
+                                <p class="card-text"><small class="text-muted">{{ post.publish }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+            </div>
+
+        {% empty %}
+        There are no similar posts yet.
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

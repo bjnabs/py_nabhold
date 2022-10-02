@@ -1,0 +1,275 @@
+<!DOCTYPE html> 
+{% load static bootstrap5 %}
+{% if 'use_i18n'|bootstrap_setting %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% endif %}
+<html lang="{{ LANGUAGE_CODE|default:'en_us' }}">
+
+<head>
+
+	<!-- Title -->
+	<meta charset="utf-8">
+	<!-- Mobile Specific Metas -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Construction Html5 Template">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+	<meta name=author content="Themefisher">
+	<meta name=generator content="Themefisher Constra HTML Template v1.0">
+
+	<title>{% block title %} nabhold {% endblock %} | Nabusiu Holdings </title>
+	<!-- Favicon  -->
+	<link rel="icon" type="image/png" href="images/favicon.png">
+
+	<!-- CSS, Fonts, and Icons   -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+		integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- Google fonts-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
+		rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
+		rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
+		rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700;800&family=Poppins&display=swap"
+		rel="stylesheet">
+	{% bootstrap_css %}
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/animate-css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/slick/slick.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/slick/slick-theme.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/colorbox/colorbox.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+	{% if 'javascript_in_head'|bootstrap_setting %}
+	{% bootstrap_javascript %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
+		integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	{% endif %}
+
+	{% block extra_head %}{% endblock %}
+</head>
+
+<body>
+	<div class="body-inner">
+		{% block before_content %} 
+		<header>
+			<!-- Header start -->
+			<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+				<!-- Navbar Brand-->
+				<div class="container-fluid">
+					<a class="navbar-brand ps-3" href="{% url 'main:home'%}">Nabhold</a>
+					<!-- Sidebar Toggle-->
+					<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+						<i class="fas fa-bars"></i>
+					</button>
+					<!-- Navbar Search-->
+					<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+						<div class="input-group">
+							<input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+								aria-describedby="btnNavbarSearch" />
+							<button class="btn btn-primary border border-radius-0" id="btnNavbarSearch" type="button">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+					<!-- Navbar-->
+					<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+						{% if request.user.is_authenticated %} 
+						<li class="nav-item dropdown">
+							<span class="bg-secondary"> Hello {{ request.user.first_name|default:request.user.username }} </span>
+							<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="#!">Settings</a></li>
+								<li><a class="dropdown-item" href="#!">Activity Log</a></li>
+								<li>
+									<hr class="dropdown-divider" />
+								</li>
+								<li><a class="dropdown-item" href="{% url 'account:logout' %}">Logout</a></li>
+							</ul>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+			<div id="layoutSidenav">
+				<div id="layoutSidenav_nav">
+					<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+						<div class="sb-sidenav-menu">
+							<div class="nav">
+								<div class="sb-sidenav-menu-heading">Core</div>
+								<a class="nav-link" href="index.html">
+									<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+									Dashboard
+								</a>
+								<div class="sb-sidenav-menu-heading">Interface</div>
+								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+									aria-expanded="false" aria-controls="collapseLayouts">
+									<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+									Layouts
+									<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+								</a>
+								<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+									data-bs-parent="#sidenavAccordion">
+									<nav class="sb-sidenav-menu-nested nav">
+										<a class="nav-link" href="layout-static.html">Static Navigation</a>
+										<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+									</nav>
+								</div>
+								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+									aria-expanded="false" aria-controls="collapsePages">
+									<div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+									Pages
+									<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+								</a>
+								<div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+									data-bs-parent="#sidenavAccordion">
+									<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+										<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+											data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+											aria-controls="pagesCollapseAuth">
+											Authentication
+											<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+										</a>
+										<div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+											data-bs-parent="#sidenavAccordionPages">
+											<nav class="sb-sidenav-menu-nested nav">
+												<a class="nav-link" href="login.html">Login</a>
+												<a class="nav-link" href="register.html">Register</a>
+												<a class="nav-link" href="password.html">Forgot Password</a>
+											</nav>
+										</div>
+										<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+											data-bs-target="#pagesCollapseError" aria-expanded="false"
+											aria-controls="pagesCollapseError">
+											Error
+											<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+										</a>
+										<div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+											data-bs-parent="#sidenavAccordionPages">
+											<nav class="sb-sidenav-menu-nested nav">
+												<a class="nav-link" href="401.html">401 Page</a>
+												<a class="nav-link" href="404.html">404 Page</a>
+												<a class="nav-link" href="500.html">500 Page</a>
+											</nav>
+										</div>
+									</nav>
+								</div>
+								<div class="sb-sidenav-menu-heading">Addons</div>
+								<a class="nav-link" href="charts.html">
+									<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+									Charts
+								</a>
+								<a class="nav-link" href="tables.html">
+									<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+									Tables
+								</a>
+							</div>
+						</div>
+						<div class="sb-sidenav-footer">
+							{% if request.user.is_authenticated %}
+							<div class="small">Logged in as:</div>
+							{{ request.user.first_name|default:request.user.username }} {{ request.user.last_name|default:request.user.username }}
+							{% endif %}
+						</div>
+					</nav>
+				</div>
+		</header>
+		{% endblock %}
+
+		{% block sidebar%}
+		<div id="layoutSidenav_content">
+			<main>
+				{% block content %} {% endblock %}
+			</main>
+		{% endblock %}
+		
+
+
+
+		<footer id="footer" class="footer bg-overlay">
+			{% block footer_content %} 
+			{% endblock %}
+
+			<div class="copyright">
+				<div class="container">
+					<div class="row text-center">
+						<div class="col-md-6">
+							<div class="copyright-info text-sm text-left">
+								<span>Copyright &copy;
+									<script>
+										document.write(new Date().getFullYear())
+									</script> Nabhold | A member of <a href="https://nabhold.com"> Nabusiu Holdings </a> | All rights
+									reserved.</a>
+								</span>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="footer-menu text-center text-md-right">
+								<ul class="list-unstyled text-right">
+									<li><a href="{% url 'main:about' %}">About</a></li>
+									<li><a href="{% url 'main:team' %}">Our people</a></li>
+									<li><a href="{% url 'main:about' %}">Faq</a></li>
+									<li><a href="{% url 'blog:articles' %}">Blog</a></li>
+									<li><a href="{% url 'main:about' %}">Pricing</a></li>
+								</ul>
+							</div>
+						</div>
+					</div><!-- Row end -->
+
+					<div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed">
+						<button class="btn btn-primary" title="Back to Top">
+							<i class="fa fa-angle-double-up"></i>
+						</button>
+					</div>
+
+				</div><!-- Container end -->
+			</div>
+
+			<!-- Copyright end -->
+		</footer><!-- Footer end -->
+
+		{% if not 'javascript_in_head'|bootstrap_setting %}
+		{% bootstrap_javascript %}
+		{% endif %}
+
+		{% block bootstrap5_extra_script %}
+		<!-- Javascript Files  -->
+		<script src="plugins/jQuery/jquery.min.js"></script>
+		<script src="plugins/bootstrap/bootstrap.min.js" defer></script>
+		<script src="plugins/slick/slick.min.js"></script>
+		<script src="plugins/slick/slick-animation.min.js"></script>
+		<script src="plugins/colorbox/jquery.colorbox.js"></script>
+		<script src="plugins/shuffle/shuffle.min.js" defer></script>
+
+
+		<!-- Google Map API Key-->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"
+			defer></script>
+		<script src="plugins/google-map/map.js" defer></script>
+		<script src="js/script.js"></script>
+		{% endblock %}
+	</div><!-- Body inner end -->
+</body>
+
+</html>

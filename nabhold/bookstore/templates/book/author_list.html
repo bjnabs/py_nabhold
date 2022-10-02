@@ -1,0 +1,23 @@
+{% extends "book/book-base.html" %}
+{% block bootstrap5_title %} Authors {% endblock %}
+{% load static %}
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+{% block content %}
+<div class="container">
+    <h1>List of Authors</h1>
+    {% if authors %}
+    <ul>
+        {% for author in authors %}
+        <li>
+            <a href="{{ author.get_absolute_url }}">{{ author.first_name }} {{author.last_name }}</a> ({{author.salutation }})
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no books in the library with this title. </p>
+    {% endif %}
+    {% include "pagination.html" with page=page_obj %}
+</div>
+{% endblock %}

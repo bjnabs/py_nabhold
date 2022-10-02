@@ -1,0 +1,42 @@
+{% extends "book/book-base.html" %}
+{% block title %} Books Home {% endblock %}
+{% load static %}
+
+{% block sidebar%}
+<ul>
+    <li><a href="{% url 'books:books-home' %}">Home</a></li>
+    <li><a href="{% url 'books:books' %}">All books</a></li>
+    <li><a href="{% url 'books:all-borrowed' %}">Books on loan</a></li>
+    <li><a href="{% url 'books:author-list' %}">All authors</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <h2>Dynamic content</h2>
+        
+        <p>The library has the following record counts:</p>
+        <ul>
+            {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'books:my-borrowed' %}">My Borrowed</a></li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+            {% endif %}
+        </ul>
+        <ul>
+            <li><strong>Books:</strong> {{ num_books }}</li>
+            <li><strong>Copies:</strong> {{ num_instances }}</li>
+            <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+            <li><strong>Authors:</strong> {{ num_authors }}</li>
+        </ul>
+        <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+    </div>
+
+   
+
+</section>
+{% endblock %}
